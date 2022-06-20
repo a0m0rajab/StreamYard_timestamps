@@ -10,11 +10,15 @@ This extension is used to help YouTubers to get the timestamps immediately after
 
 ### ToDo
 
-- [] init when stream start (go live button).
-- [] Activate when tabs changed from right side (Comments, Banners).
-- [] Add event listener to banner folders, to activate when navigate.
-- [] Check the navigation sitaution
-- [] Create a frontend for the extension where it can help the user for things like: 
+- [x] init when stream start (go live button).
+- [x] Activate when tabs changed from right side (Comments, Banners).
+- [ ] Add event listener to banner folders, to activate when navigate.
+- [ ] Check the navigation sitaution
+- [ ] Add time modifier to extract or add to the timestamps.
+- [ ] Add option for comments to get the name of the commented user. 
+- [ ] Check when new comment added.
+- [ ] Use observer instead of timeout.
+- [ ] Create a frontend for the extension where it can help the user for things like: 
   - Getting the title of the stream to add it. 
   - Saving previous text or having a text field for pre-defined text.
   - Adding title on each text when the buttons clicked.
@@ -34,4 +38,7 @@ This extension is used to help YouTubers to get the timestamps immediately after
 
 - [Get Parnet by tag](https://bobbyhadz.com/blog/javascript-get-parent-element-by-tag)
 - [Contact two nodeList](https://stackoverflow.com/questions/37552933/concat-two-nodelists)
+- [Foreach HTML connection](https://stackoverflow.com/questions/22754315/for-loop-for-htmlcollection-elements)
+- [await document.queryselector](https://stackoverflow.com/questions/69070866/async-queryselector-access)
+- [Remove Event](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
 
