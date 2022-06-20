@@ -10,16 +10,25 @@ This extension is used to help YouTubers to get the timestamps immediately after
 
 ### ToDo
 
-- [] init when stream start
-- [] create extension for chrome
-- [] Activate when tabs changed 
+- [] init when stream start (go live button).
+- [] Activate when tabs changed from right side (Comments, Banners).
+- [] Add event listener to banner folders, to activate when navigate.
 - [] Check the navigation sitaution
 - [] Create a frontend for the extension where it can help the user for things like: 
-  - Getting the title
-  - Saving previous text
-  - Adding title on each text
-  - Having ready to use text
+  - Getting the title of the stream to add it. 
+  - Saving previous text or having a text field for pre-defined text.
+  - Adding title on each text when the buttons clicked.
+  - Having ready to use text as starter.
   - Etc
+- create extension for chrome 
+
+### Testing scenarios: 
+
+- one hour
+- check the init on comment, go to banner.
+- check init on banner, go to comment.
+- add event listener on the other cases
+
 
 ### Helpful resources:
 

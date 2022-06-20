@@ -1,41 +1,69 @@
-let streamTitle = document.querySelector('header p').innerText
-let comments = '.VirtualScroller__ScrollItemWrapper-sc-zulysv-4.kYApIl';
-let banners = '.Banner__LiWrap-sc-t4oiaf-0.bpkPta';
-// https://stackoverflow.com/questions/37552933/concat-two-nodelists 
-let items = document.querySelectorAll(comments + ', ' + banners);
+
+let selectors = {
+    comments: '.VirtualScroller__ScrollItemWrapper-sc-zulysv-4.kYApIl',
+    banners: '.Banner__LiWrap-sc-t4oiaf-0.bpkPta',
+    timer: '.Tags__Tag-sc-e34eu2-1.Tags__LiveTag-sc-e34eu2-4.kUxBiX',
+    streamTitle: 'header p',
+    headerButtons: '.Status__Wrap-sc-1e5w33n-0',
+    goLiveDialog: '.GoLiveOverlay__Overlay-sc-yqe2ks-0.dDGhnF',
+    goLiveButtons: '.GoLiveOverlay__BottomButtonRow-sc-yqe2ks-1.kVTHfL',
+    sideBarTabs: '[role="tablist"]'
+}
+
+let streamTitle = document.querySelector(selectors.streamTitle).innerText
+
 let localStorageName = 'SteramYard_test';
 let text = localStorage.getItem(localStorageName) || ''
-text += streamTitle + "\n";
-function getTimer(){
-    let counter = document.querySelectorAll('.Tags__Tag-sc-e34eu2-1.Tags__LiveTag-sc-e34eu2-4.kUxBiX')[0].innerText;
-    return counter.replace('LIVE ',"")
-}
 let el;
-function addClickEvent(item){
 
-    item.addEventListener('click',e => {
-        // e = e.srcElement.parentElement.querySelector('.Banner__ContentColumn-sc-t4oiaf-4').innerText
-        e = e.srcElement.closest('li').innerText
-        console.log(e)
-        text += getTimer() + " " + replaceNewLine(e)  + "\n"
-        localStorage.setItem(localStorageName, text)
-    })
+text += streamTitle + "\n";
+
+function getTimer() {
+    let counter = document.querySelectorAll(selectors.timer)[0].innerText;
+    return counter.replace('LIVE ', "")
 }
 
+function addClickEvent(item) {
+    item.addEventListener('click', parseClickEvent)
+}
+function parseClickEvent(e){
+    e = e.srcElement.closest('li').innerText
+    e = replaceNewLine(e);
+    console.log('Clicked', e)
+    text += getTimer() + " " + e + "\n"
+    localStorage.setItem(localStorageName, text)
+}
+
+function removeClickEvent(item) {
+    item.removeEventListener('click',parseClickEvent)
+}
+
+function initScript() {
+    debugger;
+    setTimeout(() => {
+        let goLiveDialog = document.querySelector(selectors.goLiveDialog);
+        if (goLiveDialog) {
+            let goLiveButtons = document.querySelector(selectors.goLiveButtons);
+            goLiveButtons.lastChild.addEventListener('click', startRecoring);
+        }
+
+    }, 1000);
+
+}
 
 // function to replace /n with /t
 function replaceNewLine(str) {
     return str.replace(/\n/g, '\t');
 }
 
-items.forEach( e => addClickEvent(e) );
+function startRecoring() {
+    let items = document.querySelectorAll(selectors.comments + ', ' + selectors.banners);
+    items.forEach(e => removeClickEvent(e));
+    items.forEach(e => addClickEvent(e));
+}
 
-// TODO: 
-// 1. add event listener to go live button
-// 2. add event listner to buttons on the right side (comments, banners)
-// 3. add event listerner to banners folders
+function getStreamYardTimeStamps(){
+    console.log(text)
+}
 
-// one hour 
-// check the init on comment, go to banner. 
-// check init on banner, go to comment. 
-// add event listener on the other cases
+document.querySelector(selectors.headerButtons).lastChild.addEventListener('click', initScript)
