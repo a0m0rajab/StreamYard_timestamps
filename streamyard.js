@@ -18,26 +18,6 @@ let el;
 
 text += streamTitle + "\n";
 
-function getTimer() {
-    let counter = document.querySelectorAll(selectors.timer)[0].innerText;
-    return counter.replace('LIVE ', "")
-}
-
-function addClickEvent(item) {
-    item.addEventListener('click', parseClickEvent)
-}
-function parseClickEvent(e){
-    e = e.srcElement.closest('li').innerText
-    e = replaceNewLine(e);
-    console.log('Clicked', e)
-    text += getTimer() + " " + e + "\n"
-    localStorage.setItem(localStorageName, text)
-}
-
-function removeClickEvent(item) {
-    item.removeEventListener('click',parseClickEvent)
-}
-
 function initScript() {
     debugger;
     setTimeout(() => {
@@ -57,12 +37,47 @@ function setBarEvents() {
 }
 
 function startRecoring() {
-    let items = document.querySelectorAll(selectors.comments + ', ' + selectors.banners);
-    items.forEach(e => removeClickEvent(e));
-    items.forEach(e => addClickEvent(e));
+    setTimeout(() => {
+        let items = document.querySelectorAll(selectors.comments + ', ' + selectors.banners);
+        items.forEach(e => removeClickEvent(e));
+        items.forEach(e => addClickEvent(e));
+    }, 1000);
 }
 
-function getStreamYardTimeStamps(){
+function removeClickEvent(item) {
+    item.removeEventListener('click', parseClickEvent)
+}
+
+function addClickEvent(item) {
+    item.addEventListener('click', parseClickEvent)
+}
+
+function parseClickEvent(e) {
+    if (isLive()) {
+        e = e.srcElement.closest('li').innerText
+        e = replaceNewLine(e);
+        console.log('Clicked', e)
+        text += getTimer() + " " + e + "\n"
+        localStorage.setItem(localStorageName, text)
+    }
+}
+
+// function to replace /n with /t
+function replaceNewLine(str) {
+    return str.replace(/\n/g, '\t');
+}
+
+function getTimer() {
+    let counter = document.querySelectorAll(selectors.timer)[0].innerText;
+    return counter.replace('LIVE ', "")
+}
+
+function isLive() {
+    let time = document.querySelectorAll(selectors.timer)
+    if (time.length > 0) return true
+}
+
+function getStreamYardTimeStamps() {
     console.log(text)
 }
 
