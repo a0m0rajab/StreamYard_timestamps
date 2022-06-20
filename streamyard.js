@@ -51,9 +51,9 @@ function initScript() {
 
 }
 
-// function to replace /n with /t
-function replaceNewLine(str) {
-    return str.replace(/\n/g, '\t');
+function setBarEvents() {
+    let sideBarTabs = document.querySelector(selectors.sideBarTabs).children;
+    for (let item of sideBarTabs) item.addEventListener('click', startRecoring)
 }
 
 function startRecoring() {
@@ -66,4 +66,5 @@ function getStreamYardTimeStamps(){
     console.log(text)
 }
 
+setBarEvents()
 document.querySelector(selectors.headerButtons).lastChild.addEventListener('click', initScript)
