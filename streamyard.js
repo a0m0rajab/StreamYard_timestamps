@@ -15,8 +15,9 @@ let streamTitle = document.querySelector(selectors.streamTitle).innerText
 let localStorageName = 'SteramYard_test';
 let text = localStorage.getItem(localStorageName) || ''
 let el;
+let initText = 'بداية الحلقة'
 
-text += streamTitle + "\n";
+text += streamTitle + "\n" + "00:00 " + initText + "\n";
 
 function initScript() {
     debugger;
@@ -81,5 +82,8 @@ function getStreamYardTimeStamps() {
     console.log(text)
 }
 
+function resetLocalStorage(){
+    localStorage.setItem(localStorageName, '')
+}
 setBarEvents()
 document.querySelector(selectors.headerButtons).lastChild.addEventListener('click', initScript)
