@@ -16,6 +16,8 @@ let localStorageName = 'SteramYard_test';
 let text = localStorage.getItem(localStorageName) || ''
 let el;
 let initText = 'بداية الحلقة'
+let minutesDiff = 0 
+let secondDiff = 0
 
 text += streamTitle + "\n" + "00:00 " + initText + "\n";
 
@@ -58,17 +60,27 @@ function parseClickEvent(e) {
         e = e.srcElement.closest('li').innerText
         e = replaceNewLine(e);
         console.log('Clicked', e)
-        text += getTimer() + " " + e + "\n"
-        localStorage.setItem(localStorageName, text)
+        addTimeStamp(e)
     }
+}
+
+function addTimeStamp(sectionTitle) {
+    text += getTimer() + " " + sectionTitle + "\n"
+    localStorage.setItem(localStorageName, text)
+
 }
 
 // function to replace /n with /t
 function replaceNewLine(str) {
-    return str.replace(/\n/g, '\t');
+    return str.replace(/\n/g, '\t').replace('Show\t','');
 }
 
 function getTimer() {
+    let timeCounter = getTimeText().split(":")
+    return Number(timeCounter[0]) + minutesDiff + ":" + (Number(timeCounter[1]) + secondDiff)
+}
+
+function getTimeText(){
     let counter = document.querySelectorAll(selectors.timer)[0].innerText;
     return counter.replace('LIVE ', "")
 }
@@ -82,7 +94,8 @@ function getStreamYardTimeStamps() {
     console.log(text)
 }
 
-function resetLocalStorage(){
+function resetLocalStorage() {
+    text=''
     localStorage.setItem(localStorageName, '')
 }
 setBarEvents()

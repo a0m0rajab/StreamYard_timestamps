@@ -12,10 +12,11 @@ This extension is used to help YouTubers to get the timestamps immediately after
 
 - [x] init when stream start (go live button).
 - [x] Activate when tabs changed from right side (Comments, Banners).
-- [ ] Add event listener to banner folders, to activate when navigate.
-- [ ] Check the navigation sitaution
-- [ ] Add time modifier to extract or add to the timestamps.
-- [ ] Add option for comments to get the name of the commented user. 
+- [x] Add event listener to banner folders, to activate when navigate.
+- [ ] Check the navigation situation
+- [ ] Add sound bite timestamp. 
+- [x] Add time modifier to extract or add to the timestamps.
+- [x] ~~Add option for comments to get the name of the commented user.~~ It's already there. 
 - [ ] Check when new comment added.
 - [ ] Use observer instead of timeout.
 - [ ] Create a frontend for the extension where it can help the user for things like: 
@@ -24,7 +25,7 @@ This extension is used to help YouTubers to get the timestamps immediately after
   - Adding title on each text when the buttons clicked.
   - Having ready to use text as starter.
   - Etc
-- create extension for chrome 
+- [ ] create extension for chrome 
 
 ### Testing scenarios: 
 
@@ -41,4 +42,5 @@ This extension is used to help YouTubers to get the timestamps immediately after
 - [Foreach HTML connection](https://stackoverflow.com/questions/22754315/for-loop-for-htmlcollection-elements)
 - [await document.queryselector](https://stackoverflow.com/questions/69070866/async-queryselector-access)
 - [Remove Event](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
-
+- [Listeners](https://www.sqlpac.com/en/documents/javascript-listing-active-event-listeners.html)
+- [Loop HTML Collection](https://stackoverflow.com/questions/22754315/for-loop-for-htmlcollection-elements)
