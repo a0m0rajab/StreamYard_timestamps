@@ -11,8 +11,7 @@ let selectors = {
 }
 
 let streamTitle = document.querySelector(selectors.streamTitle).innerText
-
-let localStorageName = 'SteramYard_test';
+let localStorageName = 'StreamYard_test';
 let text = localStorage.getItem(localStorageName) || ''
 let el;
 let initText = 'بداية الحلقة'
@@ -22,12 +21,11 @@ let secondDiff = 0
 text += streamTitle + "\n" + "00:00 " + initText + "\n";
 
 function initScript() {
-    debugger;
     setTimeout(() => {
         let goLiveDialog = document.querySelector(selectors.goLiveDialog);
         if (goLiveDialog) {
             let goLiveButtons = document.querySelector(selectors.goLiveButtons);
-            goLiveButtons.lastChild.addEventListener('click', startRecoring);
+            goLiveButtons.lastChild.addEventListener('click', startRecording);
         }
 
     }, 1000);
@@ -36,10 +34,10 @@ function initScript() {
 
 function setBarEvents() {
     let sideBarTabs = document.querySelector(selectors.sideBarTabs).children;
-    for (let item of sideBarTabs) item.addEventListener('click', startRecoring)
+    for (let item of sideBarTabs) item.addEventListener('click', startRecording)
 }
 
-function startRecoring() {
+function startRecording() {
     setTimeout(() => {
         let items = document.querySelectorAll(selectors.comments + ', ' + selectors.banners);
         items.forEach(e => removeClickEvent(e));
