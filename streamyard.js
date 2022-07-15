@@ -14,11 +14,21 @@ let streamTitle = document.querySelector(selectors.streamTitle).innerText
 let localStorageName = 'StreamYard_test';
 let text = localStorage.getItem(localStorageName) || ''
 let el;
-let initText = 'بداية الحلقة'
-let minutesDiff = 0 
-let secondDiff = 0
+let initText = 'بداية الحلقة' // the initial text of the timestamps. 
+let minutesDiff = 0 // minutes adjustment of the project.
+let secondDiff = 0 // minutes adjustment of the project.
 
 text += streamTitle + "\n" + "00:00 " + initText + "\n";
+
+
+function set_initial_text(text){
+    initText =text;
+}
+
+function set_time_adjustment(mins,sec){
+    minutesDiff = mins
+    secondDiff = sec
+}
 
 function initScript() {
     setTimeout(() => {
