@@ -8,11 +8,28 @@ let selectors = {
     goLiveDialog: '[class^=GoLiveOverlay__Overlay]',
     goLiveButtons: '[class^=GoLiveOverlay__BottomButtonRow]',
     sideBarTabs: '[role="tablist"]',
-    headerTitle: '[class^=Header__TitleWrap]'
+    headerTitle: '[class^=Header__TitleWrap]',
+    closestItem: 'li'
+
 }
 
+let selectorsMelonApp = {
+    comments: '#message-container',
+    banners: '.text-item',
+    timer: '.live-timer',
+    streamTitle: '.multiselect__single',
+    headerButtons: '.controls__control--live',
+    sideBarTabs: '.right-nav__menu__section',
+    headerTitle: '.studio-host__status',
+    closestItem: '.text-item'
+}
+
+let isMelonApp = document.location.href.includes('https://melonapp.com/') 
+
+if(isMelonApp) selectors = selectorsMelonApp
+
 let streamTitle = document.querySelector(selectors.streamTitle).innerText
-let localStorageName = 'StreamYard_test';
+let localStorageName = 'timeStamps_extension';
 let text = localStorage.getItem(localStorageName) || ''
 let el;
 let initText = 'بداية الحلقة' // the initial text of the timestamps. 
@@ -73,11 +90,19 @@ function addClickEvent(item) {
 
 function parseClickEvent(e) {
     if (isLive()) {
-        e = e.srcElement.closest('li').innerText
+        e = (getOnScreenTextStreamYard(e) || getOnScreenTextMelonApp()).innerText
         e = replaceNewLine(e);
         console.log('Clicked', e)
         addTimeStamp(e)
     }
+}
+
+function getOnScreenTextStreamYard(e){
+    return e.srcElement.closest(selectors.closestItem);
+}
+function getOnScreenTextMelonApp(){
+    let chats = document.querySelectorAll('.fb-chat-item__body')
+    return chats[chats.length-1] || document.querySelector('.text-item--selected')
 }
 
 function addTimeStamp(sectionTitle) {
@@ -88,7 +113,7 @@ function addTimeStamp(sectionTitle) {
 
 // function to replace /n with /t
 function replaceNewLine(str) {
-    return str.replace(/\n/g, '\t').replace('Show\t', '');
+    return str.replace(/\n/g, '\t').replace('Show\t', '').replace('\nHide','');
 }
 
 function getTimer() {
@@ -104,7 +129,7 @@ function calculateDifference(mainTime, diff) {
 
 function getTimeText() {
     let counter = document.querySelectorAll(selectors.timer)[0].innerText;
-    return counter.replace('LIVE ', "")
+    return counter.replace('LIVE ', "").replace('Live\n','')
 }
 
 function isLive() {
@@ -112,7 +137,7 @@ function isLive() {
     if (time.length > 0) return true
 }
 
-function getStreamYardTimeStamps() {
+function getTimeStamps() {
     console.log(text)
 }
 
@@ -121,4 +146,4 @@ function resetLocalStorage() {
     localStorage.setItem(localStorageName, '')
 }
 setBarEvents()
-document.querySelector(selectors.headerButtons).lastChild.addEventListener('click', initScript)
+// document.querySelector(selectors.headerButtons).lastChild.addEventListener('click', initScript)

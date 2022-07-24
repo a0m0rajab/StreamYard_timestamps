@@ -1,6 +1,7 @@
-# StreamYard extension for timestamps
+# timestamps extension for Streamers
 
 This extension is used to help YouTubers to get the timestamps immediately after their stream.
+it works on StreamYard and melonApp. 
 
 ## How to use it
 
