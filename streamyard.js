@@ -1,13 +1,14 @@
 
 let selectors = {
-    comments: '.VirtualScroller__ScrollItemWrapper-sc-zulysv-4.kYApIl',
-    banners: '.Banner__LiWrap-sc-t4oiaf-0.bpkPta',
-    timer: '.Tags__Tag-sc-e34eu2-1.Tags__LiveTag-sc-e34eu2-4.kUxBiX',
+    comments: '[class^=VirtualScroller__Scroll]',
+    banners: '[class^=Banner__LiWrap]',
+    timer: '[class*=Tags__LiveTag]',
     streamTitle: 'header p',
-    headerButtons: '.Status__Wrap-sc-1e5w33n-0',
-    goLiveDialog: '.GoLiveOverlay__Overlay-sc-yqe2ks-0.dDGhnF',
-    goLiveButtons: '.GoLiveOverlay__BottomButtonRow-sc-yqe2ks-1.kVTHfL',
-    sideBarTabs: '[role="tablist"]'
+    headerButtons: '[class^=Status__Wrap]',
+    goLiveDialog: '[class^=GoLiveOverlay__Overlay]',
+    goLiveButtons: '[class^=GoLiveOverlay__BottomButtonRow]',
+    sideBarTabs: '[role="tablist"]',
+    headerTitle: '[class^=Header__TitleWrap]'
 }
 
 let streamTitle = document.querySelector(selectors.streamTitle).innerText
@@ -21,11 +22,11 @@ let secondDiff = 0 // minutes adjustment of the project.
 text += streamTitle + "\n" + "00:00 " + initText + "\n";
 
 
-function set_initial_text(text){
-    initText =text;
+function set_initial_text(text) {
+    initText = text;
 }
 
-function set_time_adjustment(mins,sec){
+function set_time_adjustment(mins, sec) {
     minutesDiff = mins
     secondDiff = sec
 }
@@ -43,14 +44,21 @@ function initScript() {
 }
 
 function setBarEvents() {
+    document.querySelector(selectors.headerTitle).append(scriptRunningText())
     let sideBarTabs = document.querySelector(selectors.sideBarTabs).children;
     for (let item of sideBarTabs) item.addEventListener('click', startRecording)
+}
+function scriptRunningText(){
+    let p = document.createElement("p")
+    p.style.color = 'red'
+    p.innerText = 'SCRIPT IS RUNNING'
+    return p
 }
 
 function startRecording() {
     setTimeout(() => {
         let items = document.querySelectorAll(selectors.comments + ', ' + selectors.banners);
-        items.forEach(e => removeClickEvent(e));
+        // items.forEach(e => removeClickEvent(e));
         items.forEach(e => addClickEvent(e));
     }, 1000);
 }
@@ -80,15 +88,21 @@ function addTimeStamp(sectionTitle) {
 
 // function to replace /n with /t
 function replaceNewLine(str) {
-    return str.replace(/\n/g, '\t').replace('Show\t','');
+    return str.replace(/\n/g, '\t').replace('Show\t', '');
 }
 
 function getTimer() {
     let timeCounter = getTimeText().split(":")
-    return Number(timeCounter[0]) + minutesDiff + ":" + (Number(timeCounter[1]) + secondDiff)
+    return calculateDifference(timeCounter[0], minutesDiff) + ":" + calculateDifference(timeCounter[1], secondDiff)
 }
 
-function getTimeText(){
+function calculateDifference(mainTime, diff) {
+    let descriptionTime = Number(mainTime) + diff
+    if (descriptionTime < 10) descriptionTime = "0" + descriptionTime
+    return descriptionTime;
+}
+
+function getTimeText() {
     let counter = document.querySelectorAll(selectors.timer)[0].innerText;
     return counter.replace('LIVE ', "")
 }
@@ -103,7 +117,7 @@ function getStreamYardTimeStamps() {
 }
 
 function resetLocalStorage() {
-    text=''
+    text = ''
     localStorage.setItem(localStorageName, '')
 }
 setBarEvents()

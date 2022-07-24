@@ -67,3 +67,5 @@ The script is scrapping the time from the StreamYard time counter and it works o
 - [Remove Event](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
 - [Listeners](https://www.sqlpac.com/en/documents/javascript-listing-active-event-listeners.html)
 - [Loop HTML Collection](https://stackoverflow.com/questions/22754315/for-loop-for-htmlcollection-elements)
+- [Subclass selecting StackOverFlow <3](https://stackoverflow.com/questions/36396497/get-all-items-that-start-with-class-name)
+- [Subclass W3.org](https://www.w3.org/TR/selectors-3/#attribute-substrings)
